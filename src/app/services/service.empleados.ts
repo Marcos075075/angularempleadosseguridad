@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "../../environments/environment.development";
 import { firstValueFrom } from "rxjs";
+import { Empleados } from "../models/empleados";
 
 @Injectable()
 export class ServiceEmpleados {
@@ -21,5 +22,21 @@ export class ServiceEmpleados {
 
     recuperarToken(){
         return localStorage.getItem('token') || '';
+    }
+
+    async getSubordinados(): Promise<Empleados[]> {
+        let request = "api/empleados/subordinados";
+        let header = new HttpHeaders().set('Authorization', 'Bearer ' + this.recuperarToken())
+        return firstValueFrom(
+            this._http.get<Empleados[]>(this.url + request, {headers: header})
+        )
+    }
+
+    async getPerfil(): Promise<Empleados> {
+        let request = "api/empleados/perfilempleado";
+        let header = new HttpHeaders().set('Authorization', 'Bearer ' + this.recuperarToken())
+        return firstValueFrom(
+            this._http.get<Empleados>(this.url + request, {headers: header})
+        )
     }
 }

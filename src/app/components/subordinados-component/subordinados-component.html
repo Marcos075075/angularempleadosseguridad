@@ -1,1 +1,22 @@
-<p>subordinados-component works!</p>
+<h1>Subordinados</h1>
+<a routerLink="/perfil" class="btn btn-info" >Ir a Perfil</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Apellido</th>
+            <th>Oficio</th>
+            <th>Salario</th>
+            <th>Director</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(sub of subordinados; track sub){
+            <tr>
+                <td>{{sub.apellido}}</td>
+                <td>{{sub.oficio}}</td>
+                <td>{{sub.salario}}</td>
+                <td>{{sub.director}}</td>
+            </tr>
+        }
+    </tbody>
+</table>

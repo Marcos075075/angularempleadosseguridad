@@ -5,13 +5,21 @@ import { App } from './app';
 import { LoginComponent } from './components/login-component/login-component';
 import { PerfilComponent } from './components/perfil-component/perfil-component';
 import { SubordinadosComponent } from './components/subordinados-component/subordinados-component';
-import { HomeComponent } from './components/home-component/home-component';
 import { ServiceEmpleados } from './services/service.empleados';
 import { provideHttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { MenuComponent } from './components/menu-component/menu-component';
+import { HomeComponent } from './components/home-component/home-component';
 
 @NgModule({
-  declarations: [App, LoginComponent, PerfilComponent, SubordinadosComponent, HomeComponent],
+  declarations: [
+    App,
+    LoginComponent,
+    PerfilComponent,
+    SubordinadosComponent,
+    MenuComponent,
+    HomeComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [provideBrowserGlobalErrorListeners(), provideHttpClient(), ServiceEmpleados],
   bootstrap: [App],
