@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServiceEmpleados } from '../../services/service.empleados';
+import { ServiceSignal } from '../../services/service.signal';
 
 @Component({
   selector: 'app-home-component',
@@ -9,10 +10,13 @@ import { ServiceEmpleados } from '../../services/service.empleados';
   templateUrl: './home-component.html',
 })
 export class HomeComponent {
-  
+  private _serviceSignal: ServiceSignal = inject(ServiceSignal);
+  public contador = this._serviceSignal.contador;
   constructor(
     private _router: Router,
   ) {}
+
+  
 
   logout() {
     sessionStorage.removeItem('token');

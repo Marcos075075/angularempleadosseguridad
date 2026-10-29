@@ -1,7 +1,8 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { ServiceEmpleados } from '../../services/service.empleados';
 import { Router } from '@angular/router';
 import { Login } from '../../models/login';
+import { ServiceAuthEmpleados } from '../../services/service.auth.empleados';
 
 @Component({
   selector: 'app-login-component',
@@ -10,27 +11,36 @@ import { Login } from '../../models/login';
   templateUrl: './login-component.html',
 })
 export class LoginComponent {
+  private _serviceAuth: ServiceAuthEmpleados = inject(ServiceAuthEmpleados);
   public token!: string;
   @ViewChild ("cajauser") cajaUser!: ElementRef;
   @ViewChild ("cajapass") cajaPass!: ElementRef;
 
   constructor(
     private _service: ServiceEmpleados,
-    private _router: Router
+    private _router: Router,
+    private _cdr: ChangeDetectorRef
   ){}
 
   async login(): Promise<void> {    
     let usuario = this.cajaUser.nativeElement.value;
     let password = this.cajaPass.nativeElement.value;
     let log: Login = new Login(usuario, password);
-    let respuesta = await this._service.getToken(log);
-    this.token = respuesta.response;
-    sessionStorage.setItem('token', this.token);
+    try {
+      let respuesta = await this._service.getToken(log);
+      this.token = respuesta?.response;
 
-    if (this.token) {
+      if (!this.token) {
+        alert("Usuario o contraseña incorrectos");
+        return;
+      }
+
+      await this._serviceAuth.loginEmpleado(this.token);
+      this._cdr.detectChanges();
       this._router.navigate(['/home']);
-    } else{
-      alert("Usuario o contraseña incorrectos");
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      alert("No se pudo iniciar sesión. Comprueba la conexión con el servidor.");
     }
   }
 

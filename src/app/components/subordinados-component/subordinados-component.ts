@@ -24,12 +24,14 @@ export class SubordinadosComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    if (!this._service.recuperarToken()) {
-      alert('No tiene token, por favor inicie sesión');
-      this._router.navigate(['/']);
-    } else {
-      this.subordinados = await this._service.getSubordinados();
-      this._cdr.detectChanges();
-    }
+    this.subordinados = await this._service.getSubordinados();
+    this._cdr.detectChanges();
+    // if (!this._service.recuperarToken()) {
+    //   alert('No tiene token, por favor inicie sesión');
+    //   this._router.navigate(['/']);
+    // } else {
+    //   this.subordinados = await this._service.getSubordinados();
+    //   this._cdr.detectChanges();
+    // }
   }
 }

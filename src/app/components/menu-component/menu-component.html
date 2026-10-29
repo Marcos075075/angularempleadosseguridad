@@ -1,1 +1,18 @@
-<p>menu-component works!</p>
+<header class="menu">
+  <a class="menu__brand" routerLink="/home">Empleados</a>
+
+  <nav aria-label="Navegación principal">
+    @if (isAuthenticated) {
+  <h1>{{contador()}}</h1>
+      <a routerLink="/home" routerLinkActive="menu__link--active"
+        [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
+      <a routerLink="/perfil" routerLinkActive="menu__link--active">Perfil</a>
+      <a routerLink="/subordinados" routerLinkActive="menu__link--active">Subordinados</a>
+      <a routerLink="/signal" routerLinkActive="menu__link--active">Signal</a>
+      <button type="button" class="menu__logout" (click)="logout()">Cerrar sesión</button>
+    } @else {
+      <a routerLink="/" routerLinkActive="menu__link--active"
+        [routerLinkActiveOptions]="{ exact: true }">Iniciar sesión</a>
+    }
+  </nav>
+</header>

@@ -10,6 +10,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './components/menu-component/menu-component';
 import { HomeComponent } from './components/home-component/home-component';
+import { AuthGuard } from './guards/auth-guard';
+import { EjemploSignalComponent } from './components/ejemplo-signal-component/ejemplo-signal-component';
 
 @NgModule({
   declarations: [
@@ -19,9 +21,15 @@ import { HomeComponent } from './components/home-component/home-component';
     SubordinadosComponent,
     MenuComponent,
     HomeComponent,
+    EjemploSignalComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
-  providers: [provideBrowserGlobalErrorListeners(), provideHttpClient(), ServiceEmpleados],
+  providers: [
+    AuthGuard,
+    provideBrowserGlobalErrorListeners(),
+    provideHttpClient(),
+    ServiceEmpleados,
+  ],
   bootstrap: [App],
 })
 export class AppModule {}
