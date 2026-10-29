@@ -3,14 +3,15 @@ import { Injectable } from "@angular/core";
 import { environment } from "../../environments/environment.development";
 import { firstValueFrom } from "rxjs";
 import { Empleados } from "../models/empleados";
+import { Login } from "../models/login";
 
 @Injectable()
 export class ServiceEmpleados {
     constructor(private _http: HttpClient) {}
     url = environment.urlApiEmpleados;
 
-    async getToken(userName: string, password: string): Promise<any> {
-        let json = JSON.stringify({userName, password});
+    async getToken(login: Login): Promise<any> {
+        let json = JSON.stringify(login);
         let header = new HttpHeaders().set('Content-Type', 'application/json');
         let request = "auth/login";
         console.log("Json:" + json);

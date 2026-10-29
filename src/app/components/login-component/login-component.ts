@@ -1,6 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ServiceEmpleados } from '../../services/service.empleados';
 import { Router } from '@angular/router';
+import { Empleados } from '../../models/empleados';
+import { Login } from '../../models/login';
 
 @Component({
   selector: 'app-login-component',
@@ -21,8 +23,8 @@ export class LoginComponent {
   async login(): Promise<void> {    
     let usuario = this.cajaUser.nativeElement.value;
     let password = this.cajaPass.nativeElement.value;
-    console.log("usuario: " + usuario + " password: " + password);
-    let respuesta = await this._service.getToken(usuario, password);
+    let log: Login = new Login(usuario, password);
+    let respuesta = await this._service.getToken(log);
     this.token = respuesta.response;
     localStorage.setItem('token', this.token);
 
