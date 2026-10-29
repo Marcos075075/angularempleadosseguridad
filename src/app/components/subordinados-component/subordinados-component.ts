@@ -18,6 +18,11 @@ export class SubordinadosComponent implements OnInit {
     private _router: Router,
   ) {}
 
+  logout() {
+    sessionStorage.removeItem('token');
+    this._router.navigate(['/']);
+  }
+
   async ngOnInit(): Promise<void> {
     if (!this._service.recuperarToken()) {
       alert('No tiene token, por favor inicie sesión');

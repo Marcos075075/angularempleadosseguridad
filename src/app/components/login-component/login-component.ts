@@ -1,7 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ServiceEmpleados } from '../../services/service.empleados';
 import { Router } from '@angular/router';
-import { Empleados } from '../../models/empleados';
 import { Login } from '../../models/login';
 
 @Component({
@@ -26,7 +25,7 @@ export class LoginComponent {
     let log: Login = new Login(usuario, password);
     let respuesta = await this._service.getToken(log);
     this.token = respuesta.response;
-    localStorage.setItem('token', this.token);
+    sessionStorage.setItem('token', this.token);
 
     if (this.token) {
       this._router.navigate(['/home']);

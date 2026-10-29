@@ -22,7 +22,7 @@ export class ServiceEmpleados {
     }
 
     recuperarToken(){
-        return localStorage.getItem('token') || '';
+        return sessionStorage.getItem('token') || '';
     }
 
     async getSubordinados(): Promise<Empleados[]> {
